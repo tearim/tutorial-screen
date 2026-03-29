@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- 
+    Credits: JS code is human-written. 
+    Examples and documentation generated with LLM assistance (Gemini & JetBrains Junie using gemini-3-flash-preview).
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TutorialScreen - Dark Theme Demo</title>
+    <link rel="stylesheet" href="../assets/page-style.css">
+    <style>
+        body { background-color: #121212; color: #e0e0e0; }
+        .hero-block { background-color: #1f1f1f; border-bottom: 1px solid #333; }
+        .sidemenu { background-color: #1f1f1f; border-right: 1px solid #333; }
+        .content-block { background-color: #121212; }
+        
+        /* Custom Dark Theme for TutorialScreen */
+        .tutorial_veil { background: rgba(0,0,0,0.8); }
+        .tutorial_tip.dark-mode {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .tutorial_tip.dark-mode .tip_title h1 { color: #bb86fc; }
+        .tutorial_tip.dark-mode .arrow.up { border-bottom-color: #333; }
+        .tutorial_tip.dark-mode .arrow.down { border-top-color: #333; }
+        .tutorial_tip.dark-mode .arrow.left { border-right-color: #333; }
+        .tutorial_tip.dark-mode .arrow.right { border-left-color: #333; }
+        
+        .tutorial_veil_controls .button { background: #bb86fc; color: #000; }
+        .tutorial_tip.dark-mode .side_button { color: #bb86fc; }
+    </style>
+</head>
+<body>
+    <header id="hero" class="hero-block">
+        <a href="../index.html" style="color: white; text-decoration: none; position: absolute; top: 20px; left: 20px; font-weight: bold;">← Back to Examples</a>
+        <h1>Dark Theme Demo</h1>
+        <button id="startTour">Launch Dark Tour</button>
+    </header>
+    <div class="container">
+        <nav id="sidebar" class="sidemenu">
+            <ul><li>Dark Menu</li></ul>
+        </nav>
+        <main id="main-content" class="content-block">
+            <p>This example demonstrates how to apply a custom dark theme using the <code>additionalClassName</code> option and some CSS.</p>
+        </main>
+    </div>
+
+    <script src="../../dist/tutorial.ts.js"></script>
+    <script>
+        const darkTour = [
+            { 
+                name: 'Global Theme', 
+                content: 'This tour uses a global dark theme set via options.', 
+                target: '#hero' // Element ID or CSS selector to highlight
+            },
+            { 
+                name: 'Stage Theme', 
+                content: 'This stage has a specific theme overriding the global one.', 
+                target: '#sidebar', // Element ID or CSS selector to highlight
+                themeClassName: 'stage-custom-theme'
+            },
+            { 
+                name: 'Element Themes', 
+                content: 'You can also apply specific classes to the tip, veil, or controls individually.', 
+                target: '#main-content', // Element ID or CSS selector to highlight
+                additionalTipClassName: 'special-tip',
+                additionalVeilClassName: 'special-veil'
+            }
+        ];
+
+        document.getElementById('startTour').addEventListener('click', () => {
+            TutorialScreen.setCSSLink('../../styles/tutorial.css');
+            TutorialScreen.setTutorialOptions({ THEME_CLASS_NAME: 'dark-mode' });
+            TutorialScreen.setOnTutorialClose(() => {
+                console.log('Tutorial closed! This is the onTutorialClose callback.');
+                alert('Thank you for taking the dark tour!');
+            });
+            TutorialScreen.startTutorial(darkTour);
+        });
+    </script>
+</body>
+</html>

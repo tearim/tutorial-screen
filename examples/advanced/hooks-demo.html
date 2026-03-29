@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- 
+    Credits: JS code is human-written. 
+    Examples and documentation generated with LLM assistance (Gemini & JetBrains Junie using gemini-3-flash-preview).
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TutorialScreen - Lifecycle Hooks Demo</title>
+    <link rel="stylesheet" href="../assets/page-style.css">
+    <style>
+        .event-log {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+        .highlighted-box {
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+            margin: 20px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .highlighted-box.active {
+            background: orange;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero-block">
+        <a href="../index.html" style="color: white; text-decoration: none; position: absolute; top: 20px; left: 20px; font-weight: bold;">← Back to Examples</a>
+        <h1>Lifecycle Hooks Demo</h1>
+        <button id="startTour">Start Tour with Hooks</button>
+    </header>
+    
+    <div class="container">
+        <div id="box1" class="highlighted-box">Box 1</div>
+        <div id="box2" class="highlighted-box">Box 2</div>
+        
+        <div class="event-log" id="log">
+            <div><strong>Event Log:</strong></div>
+        </div>
+    </div>
+
+    <script src="../../dist/tutorial.ts.js"></script>
+    <script>
+        const log = document.getElementById('log');
+        function addLog(msg) {
+            const entry = document.createElement('div');
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        const tourWithHooks = [
+            {
+                name: 'Step 1: Introduction',
+                content: 'This stage triggers <code>onTipLoad</code> when it starts.',
+                target: '#box1', // Element ID or CSS selector to highlight
+                onTipLoad: () => {
+                    addLog('Step 1: onTipLoad triggered');
+                    document.getElementById('box1').classList.add('active');
+                },
+                onTipClose: () => {
+                    addLog('Step 1: onTipClose triggered');
+                    document.getElementById('box1').classList.remove('active');
+                }
+            },
+            {
+                name: 'Step 2: Interaction',
+                content: 'Notice how the boxes change color using the hooks.',
+                target: '#box2', // Element ID or CSS selector to highlight
+                onTipLoad: () => {
+                    addLog('Step 2: onTipLoad triggered');
+                    document.getElementById('box2').classList.add('active');
+                },
+                onTipClose: () => {
+                    addLog('Step 2: onTipClose triggered');
+                    document.getElementById('box2').classList.remove('active');
+                }
+            }
+        ];
+
+        document.getElementById('startTour').addEventListener('click', () => {
+            addLog('Starting Tutorial...');
+            TutorialScreen.setCSSLink('../../styles/tutorial.css');
+            TutorialScreen.setOnTutorialClose(() => {
+                addLog('Tutorial closed (Global Hook)');
+            });
+            TutorialScreen.startTutorial(tourWithHooks);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- 
+    Credits: JS code is human-written. 
+    Examples and documentation generated with LLM assistance (Gemini & JetBrains Junie using gemini-3-flash-preview).
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TutorialScreen - IIFE Load</title>
+    <link rel="stylesheet" href="../assets/page-style.css">
+</head>
+<body>
+    <header id="hero" class="hero-block">
+        <a href="../index.html" style="color: white; text-decoration: none; position: absolute; top: 20px; left: 20px; font-weight: bold;">← Back to Examples</a>
+        <h1>IIFE Global Demo</h1>
+        <button id="startTour">Start Tour</button>
+    </header>
+    <div class="container">
+        <nav id="sidebar" class="sidemenu">
+            <ul><li>Menu Item</li></ul>
+        </nav>
+        <main id="main-content" class="content-block">
+            <p>This page loads the library via a standard script tag, making it available on the window object.</p>
+        </main>
+    </div>
+
+    <script src="../../dist/tutorial.ts.js"></script>
+    <script>
+        const demoTutorial = [
+            { name: 'Global Access', content: 'TutorialScreen is available globally here.', target: '#hero' }, // Element ID or CSS selector to highlight
+            { name: 'Sidebar', content: 'Still works exactly the same.', target: '#sidebar' } // Element ID or CSS selector to highlight
+        ];
+
+        document.getElementById('startTour').addEventListener('click', () => {
+            TutorialScreen.setCSSLink('../../styles/tutorial.css');
+            TutorialScreen.startTutorial(demoTutorial);
+        });
+    </script>
+</body>
+</html>

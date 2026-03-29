@@ -1,0 +1,43 @@
+{
+  "name": "tutorial-screen",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A lightweight, customizable product tour library.",
+  "main": "dist/tutorial.min.js",
+  "module": "dist/tutorial.esm.min.js",
+  "types": "dist/types/tutorial.d.ts",
+  "files": [
+    "dist",
+    "styles",
+    "src"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tearim/tutorial-screen.git"
+  },
+  "keywords": [
+    "onboarding",
+    "tutorial",
+    "tour",
+    "product-tour"
+  ],
+  "author": "Mark Gondelman",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "rollup": "^4.60.0",
+    "tslib": "^2.8.1",
+    "typescript": "^6.0.2"
+  }
+}

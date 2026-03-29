@@ -1,0 +1,360 @@
+
+ .tutorial_veil {
+    --tutorial-tip-bg-color: #ffffff;
+    --tutorial-tip-arrow-color: #ffffff;
+    --tutorial-bg-color:  #000000c2;
+    --tutorial-control-color: #000;
+    --tutorial-control-color-dark-mode: #d5d8dc;
+    --tutorial-accent-color: #d62d21;
+    --tutorial-accent-color-50: #d62d2180; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--tutorial-bg-color);
+    z-index: 500;
+    backdrop-filter: blur(1px) contrast(1);
+    transition: 0.3s all;
+}
+.tutorial_veil.dark-mode, .tutorial_veil_controls.dark-mode,
+.dark-mode .button {
+    color: var(--tutorial-control-color-dark-mode) !important;
+}
+.tutorial_veil_controls {
+    z-index: 530;
+    position: fixed;
+    transition: 0.3s all;
+    top: 0;
+    right: 0;
+    width: 300px;
+}
+
+.tutorial_tip {
+    position: absolute;
+    background: var(--tutorial-tip-bg-color);
+    padding: 20px 42px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: 0.2s all;
+    max-width: 60%;
+    box-sizing: border-box;
+}
+
+.tutorial_tip.exposed {
+    opacity: 1;
+}
+
+.tutorial_tip_vertical_center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* top: initial !important; */
+    /* left: initial !important; */
+    /* right: initial !important; */
+    /* bottom: initial !important; */
+    align-self: anchor-center;
+    justify-self: anchor-center;
+    height: auto !important;
+}
+.tutorial_tip.general {
+    left: 20%;
+    top: 20%;
+    width: 60%;
+    height: 60%;
+}
+
+@media (max-width: 900px) {
+    .tutorial_tip.general {
+        left: 5%;
+        top: 7%;
+        width: 90%;
+        height: 80%;
+        max-width: 90%;
+    }
+    .tutorial_veil_controls div .buttonie,
+    .tutorial_veil div .buttonie {
+        height: 75px;
+        line-height: 75px;
+        margin: 10px auto;
+        font-size: 1em;
+    }
+    .tutorial_veil div h1 {
+        font-size: 1.3em;
+        margin: 2px;
+    }
+    .tutorial_veil div p {
+        margin: 2px 0;
+        font-size: 0.9em;
+    }
+}
+.tutorial_veil_controls .button,
+.tutorial_veil .button {
+    border-radius: 40px;
+    line-height: 35px;
+    font-size: 36px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    z-index: 501;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s;
+    user-select: none;
+    font-family: monospace;
+}
+
+.tutorial_veil_controls .disabled,
+.tutorial_veil .disabled {
+    opacity: 0.5;
+    cursor: default;
+    filter: blur(2px);
+}
+
+.tutorial_veil .close,
+.tutorial_veil_controls .close {
+    background-color: var(--bluetinative50);
+    color: var(--agreecusative);
+    top: 5px;
+    right: 5px;
+}
+
+.tutorial_veil .close:hover,
+.tutorial_veil_controls .close:hover {
+    background-color: var(--adjective-pars);
+    transform: rotate(45deg);
+    box-shadow: 0 0 6px 0px var(--light-red-mistake);
+}
+
+.tutorial_veil .next,
+.tutorial_veil_controls .next {
+    top: 5px;
+    right: 46px;
+    background: var(--case-gen-50);
+    text-shadow: 0px 0px 2px var(--case-gen);
+    box-shadow: 0 0 1px 1px inset var(--case-gen);
+    transition: all 0.5s;
+}
+
+.tutorial_veil .next .caption,
+.tutorial_veil_controls .next .caption {
+    transform: rotate(90deg);
+    display: flex;
+    justify-content: center;
+    line-height: 40px;touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+}
+
+.tutorial_veil .next:hover,
+.tutorial_veil_controls .next:hover {
+    text-shadow: 4px 0px 2px var(--case-gen);
+    box-shadow: -3px 0px 1px 1px inset var(--case-gen);
+}
+
+.tutorial_veil .previous,
+.tutorial_veil_controls .previous {
+    top: 5px;
+    right: 88px;
+    background: var(--case-gen-50);
+    text-shadow: 0px 0px 2px var(--light-red-mistake);
+    box-shadow: 0 0 1px 1px inset var(--light-red-mistake);
+    transition: all 0.5s;
+}
+.tutorial_veil .previous:hover,
+.tutorial_veil_controls .previous:hover {
+    text-shadow: -3px 0px 2px var(--light-red-mistake);
+    box-shadow: 3px 0px 1px 1px inset var(--light-red-mistake);
+}
+.tutorial_veil .previous .caption,
+.tutorial_veil_controls .previous .caption {
+    transform: rotate(-90deg);
+    display: flex;
+    justify-content: center;
+    line-height: 40px;touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+}
+.tutorial_veil_controls span.button,
+.tutorial_veil span.button {
+    position: relative;
+    display: inline-block;
+    top: auto;
+    left: auto;
+    right: auto;
+    user-select: none;
+}
+.tutorial_veil .tip_title {
+    display: flex;
+    justify-content: flex-end;
+}
+.tutorial_veil .tip_title  h1 {
+    width: 95%;
+    margin: 0;
+    margin-block: 0;
+    margin-inline: 0;
+    padding: 0;
+}
+.tutorial_veil .tip_title .counting_span  {
+    width: 5%;
+    padding-top: 6px;
+    font-size: 0.7em;
+}
+.red_meta_menu {
+    background: var(--agreecusative);
+    border: 1px solid;
+    width: 20px;
+    height: 20px;
+    line-height: 17px;
+    border-radius: 40px;
+    box-shadow: -1px 2px 2px 1px var(--less-green-correctness);
+    z-index: 20;
+    position: relative;
+    text-align: center;
+    transition: 0.4s all;
+    transform: rotate3d(0, 5, 0, 180deg);
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+}
+.highlighted {
+    z-index: 510 !important;
+    /* box-shadow: 0 0 11px 10px rgba(255,255,255,0.5), 0 0 21px 8px rgba(255,247,223,0.5) inset; */
+    /* border: 1px solid #fff; */
+    border-radius: 4px;
+}
+
+.tutorial_tip.exposed .arrow {
+  border: solid var(--tutorial-tip-arrow-color);
+  border-width: 0 5px 5px 0;
+  display: inline-block;
+  padding: 3px;
+  position: absolute;
+}
+
+.arrow.right {
+  transform: rotate(-45deg);
+  right: -5px;
+}
+
+.arrow.left {
+  transform: rotate(135deg);
+  left: -5px;
+}
+
+.arrow.up {
+    transform: rotate(-135deg);
+    top: -4px;
+}
+
+.arrow.down {
+  transform: rotate(45deg);
+  bottom: -4px;
+}
+
+.tutorial_tip_small {
+    font-size: 0.95em;
+    padding: 5px 37px;
+}
+.tutorial_tip_small h1 {
+    font-size: 1.2em;
+    padding: 0.2em;
+    margin: 0.2em;
+}
+.tutorial_tip_small p {
+    padding: 0.2em;
+    margin: 0.2em;
+}
+
+.tutorial_tip_wide {
+    width: 90%;
+    max-width: 90%;
+}
+#main_container.moved_down {
+    top: 140px;
+}
+
+.tutorial_veil .buttonie {
+    margin: 26px auto;
+    float: none;
+    line-height: 90px;
+    height: 90px;
+    font-size: 2em;
+    font-weight: bold;
+    width: auto;
+    text-align: center;
+}
+
+.side_button {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin:0;
+    padding: 0;
+    top: 0 !important;
+    vertical-align: middle;
+    /* line-height: 50; */
+    cursor: pointer;
+    text-align: center;
+    opacity: 0.5;
+    user-select: none;
+}
+
+.side_button:hover {
+    opacity: 1;
+}
+.close.side_button {
+    top: 5px !important;
+    right: 6px;
+    height: 20px;
+    width: 20px;
+    transition: all 0.4s;
+    color: var(--tutorial-accent-color);
+    background: var(--tutorial-accent-color-50);
+    border: 1px solid var(--tutorial-accent-color);
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.close.side_button:hover {
+    color: var(--tutorial-control-color);
+    background: var(--tutorial-accent-color);
+}
+
+@property --myColor1 {
+  syntax: '<color>';
+  initial-value: #ffffff00;
+  inherits: false;
+}
+
+@property --myColor2 {
+  syntax: '<color>';
+  initial-value: #4567;
+  inherits: false;
+}
+
+.side_button.next {
+    right: 0;
+    width: 40px;
+    background: linear-gradient(90deg, var(--myColor1), var(--myColor2));
+    box-shadow: -2px 0px 1px 1px inset var(--case-gen);
+    transition: --myColor1 0.9s, --myColor2 2s;
+}
+
+.side_button.next:hover {
+    -–myColor1: #aaaa;
+    --myColor2: #58d93199;
+}
+
+.side_button.previous {
+    left: 0;
+    width: 40px;
+    background: linear-gradient(90deg, var(--myColor2), var(--myColor1));
+    box-shadow: 2px 0px 1px 1px inset var(--light-red-mistake);
+    transition: --myColor1 0.9s, --myColor2 2s;
+}
+
+.side_button.previous:hover {
+    -–myColor1: #aaaa;
+    --myColor2: #d9d33199;
+}

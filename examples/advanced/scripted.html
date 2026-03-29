@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- 
+    Credits: JS code is human-written. 
+    Examples and documentation generated with LLM assistance (Gemini & JetBrains Junie using gemini-3-flash-preview).
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TutorialScreen - Advanced Scripting</title>
+    <link rel="stylesheet" href="../assets/page-style.css">
+    <style>
+        .hidden-panel { display: none; padding: 10px; background: #eee; margin-top: 10px; border-radius: 4px; }
+        .hidden-panel.visible { display: block; border: 2px solid #ff9800; }
+        .action-required { color: #d32f2f; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header id="hero" class="hero-block">
+        <a href="../index.html" style="color: white; text-decoration: none; position: absolute; top: 20px; left: 20px; font-weight: bold;">← Back to Examples</a>
+        <h1>Advanced Scripting Demo</h1>
+        <button id="startTour">Launch Advanced Tour</button>
+    </header>
+
+    <div class="container">
+        <nav id="sidebar" class="sidemenu">
+            <button id="toggleSettings">Settings (Manual)</button>
+            <div id="settingsPanel" class="hidden-panel">
+                <label><input type="checkbox" id="pref"> Notification Preference</label>
+            </div>
+        </nav>
+        <main id="main-content" class="content-block">
+            <h2 id="interactive-heading">Interactive Area</h2>
+            <p>Click the "Launch" button to see the tutorial control the page state.</p>
+        </main>
+    </div>
+
+    <script src="../../dist/tutorial.ts.js"></script>
+    <script>
+        const panel = document.getElementById('settingsPanel');
+        const heading = document.getElementById('interactive-heading');
+
+        const scriptedTour = [
+            {
+                name: 'Lifecycle Hooks',
+                content: 'This tutorial will now automatically open the settings panel for you.',
+                target: '#hero' // Element ID or CSS selector to highlight
+            },
+            {
+                name: 'Auto-Interaction',
+                content: 'Look! The panel opened automatically via <code>onTipLoad</code>.',
+                target: '#settingsPanel', // Element ID or CSS selector to highlight
+                onTipLoad: () => {
+                    panel.classList.add('visible');
+                },
+                onTipClose: () => {
+                    // We can keep it open or close it. Let's close it when moving away.
+                    panel.classList.remove('visible');
+                }
+            },
+            {
+                name: 'Interactive Gate',
+                content: '<span class="action-required">Action Required:</span> Click the "Interactive Area" heading to proceed. The navigation buttons are disabled!',
+                target: '#interactive-heading', // Element ID or CSS selector to highlight
+                onTipLoad: () => {
+                    // Disable tutorial navigation to force user interaction
+                    TutorialScreen.setTutorialOptions({ SHOW_INTERNAL_NAVIGATION: false });
+                    
+                    heading.style.cursor = 'pointer';
+                    heading.onclick = () => {
+                        heading.style.color = 'green';
+                        heading.textContent = 'Correct! Moving on...';
+                        TutorialScreen.nextTip();
+                    };
+                },
+                onTipClose: () => {
+                    // Restore navigation for the next steps
+                    TutorialScreen.setTutorialOptions({ SHOW_INTERNAL_NAVIGATION: true });
+                    heading.onclick = null;
+                    heading.style.cursor = 'default';
+                }
+            },
+            {
+                name: 'Finish',
+                content: 'The tour is over. Everything will be reset now.',
+                target: '#hero' // Element ID or CSS selector to highlight
+            }
+        ];
+
+        document.getElementById('startTour').addEventListener('click', () => {
+            // Illustrating global options
+            TutorialScreen.setTutorialOptions({
+                BASE_SLEEP: 200, // Faster transitions
+                SHOW_TIP_COUNT: true,
+                VERTICAL_SPACING: 30
+            });
+            
+            TutorialScreen.setOnTutorialClose(() => {
+                alert('Tutorial finished! Page state can be reset here.');
+                heading.style.color = 'black';
+                heading.textContent = 'Interactive Area';
+            });
+
+            TutorialScreen.setCSSLink('../../styles/tutorial.css');
+            TutorialScreen.startTutorial(scriptedTour);
+        });
+    </script>
+</body>
+</html>

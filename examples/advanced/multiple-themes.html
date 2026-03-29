@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- 
+    Credits: JS code is human-written. 
+    Examples and documentation generated with LLM assistance (Gemini & JetBrains Junie using gemini-3-flash-preview).
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TutorialScreen - Multiple Themes Demo</title>
+    <link rel="stylesheet" href="../assets/page-style.css">
+    <link rel="stylesheet" href="../assets/page-themes.css">
+    <style>
+        .theme-box {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .solarized { background: #fdf6e3; color: #657b83; }
+        .forest { background: #2d3e31; color: #d1e1d3; }
+    </style>
+</head>
+<body>
+    <header class="hero-block">
+        <a href="../index.html" style="color: white; text-decoration: none; position: absolute; top: 20px; left: 20px; font-weight: bold;">← Back to Examples</a>
+        <h1>Multiple Themes Demo</h1>
+        <button id="startTour">Launch Multi-Theme Tour</button>
+    </header>
+    <div class="container">
+        <div id="solarized-section" class="theme-box solarized">
+            <h2>Solarized Section</h2>
+            <p>This section uses a warm, solarized color palette.</p>
+        </div>
+        <div id="forest-section" class="theme-box forest">
+            <h2>Forest Section</h2>
+            <p>This section uses a dark, forest-inspired color palette.</p>
+        </div>
+    </div>
+
+    <script src="../../dist/tutorial.ts.js"></script>
+    <script>
+        const multiThemeTour = [
+            { 
+                name: 'Solarized', 
+                content: 'This tip uses the Solarized theme to match this section.', 
+                target: '#solarized-section', // Element ID or CSS selector to highlight
+                themeClassName: 'solarized-theme'
+            },
+            { 
+                name: 'Forest', 
+                content: 'Now switching to the Forest theme for this section.', 
+                target: '#forest-section', // Element ID or CSS selector to highlight
+                themeClassName: 'forest-theme'
+            },
+            { 
+                name: 'Custom Mix', 
+                content: 'Applying a specific veil color and control style for this step.', 
+                target: 'h1', // Element ID or CSS selector to highlight
+                themeClassName: 'solarized-theme',
+                additionalVeilClassName: 'special-veil-theme',
+                additionalVeilControlClassName: 'special-controls-theme'
+            }
+        ];
+
+        document.getElementById('startTour').addEventListener('click', () => {
+            TutorialScreen.setCSSLink('../../styles/tutorial.css');
+            TutorialScreen.startTutorial(multiThemeTour);
+        });
+    </script>
+</body>
+</html>

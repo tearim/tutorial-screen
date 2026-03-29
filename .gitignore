@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Directory dist is included as this is a very small library
+
+# Temporary files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Project exclude paths
+/src/tutorial.js

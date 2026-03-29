@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- 
+    Credits: JS code is human-written. 
+    Examples and documentation generated with LLM assistance (Gemini & JetBrains Junie using gemini-3-flash-preview).
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TutorialScreen Examples</title>
+    <link rel="stylesheet" href="assets/page-style.css">
+    <style>
+        .example-list {
+            list-style: none;
+            padding: 0;
+        }
+        .example-item {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: #fff;
+        }
+        .example-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .example-item h3 {
+            margin-top: 0;
+            color: #1e3c72;
+        }
+        .example-item p {
+            margin: 0.5rem 0;
+            color: #666;
+        }
+        .example-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #1e3c72;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .example-link:hover {
+            background-color: #2a5298;
+        }
+        .category-title {
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ff9800;
+            color: #333;
+        }
+        .back-home {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero-block">
+        <h1>TutorialScreen Examples</h1>
+        <p>Explore the features and integration patterns of the TutorialScreen library.</p>
+        <button id="startTutorial" class="example-link" style="background-color: #ff9800; cursor: pointer; border: none; font-family: inherit;">Show me around! (This button will trigger the demo of the library too :) )</button>
+    </header>
+    
+    <div class="container" style="display: block; max-width: 800px;">
+        <a href="../README.md" class="back-home">← Back to README</a>
+        
+        <h2 class="category-title">Basic Usage</h2>
+        <ul class="example-list">
+            <li id="example-iife" class="example-item">
+                <h3>Standard IIFE Load</h3>
+                <p>The simplest way to use TutorialScreen. Load it via a &lt;script&gt; tag and access it through the global window object.</p>
+                <a href="basic/simple.iife.html" class="example-link">View Example</a>
+            </li>
+            <li id="example-module" class="example-item">
+                <h3>ES Module Load</h3>
+                <p>Integration using modern JavaScript modules. Ideal for projects with a build system or native module support.</p>
+                <a href="basic/simple.module.html" class="example-link">View Example</a>
+            </li>
+        </ul>
+
+        <h2 class="category-title">Advanced Features</h2>
+        <ul class="example-list">
+            <li id="example-scripted" class="example-item">
+                <h3>Scripted Interactions</h3>
+                <p>Learn how to control the tutorial flow programmatically and handle interactive elements.</p>
+                <a href="advanced/scripted.html" class="example-link">View Example</a>
+            </li>
+            <li id="example-custom-theme" class="example-item">
+                <h3>Custom Themes (Dark Mode)</h3>
+                <p>Demonstrates global theme configuration and stage-level theme overrides for a dark mode experience.</p>
+                <a href="advanced/custom-theme.html" class="example-link">View Example</a>
+            </li>
+            <li id="example-multiple-themes" class="example-item">
+                <h3>Multiple Themes & Fine-tuning</h3>
+                <p>See how to apply different themes (like Solarized and Forest) to different elements in the same tutorial.</p>
+                <a href="advanced/multiple-themes.html" class="example-link">View Example</a>
+            </li>
+            <li id="example-hooks" class="example-item">
+                <h3>Lifecycle Hooks</h3>
+                <p>Advanced integration using <code>onTipLoad</code> and <code>onTipClose</code> to modify the page as the user progresses.</p>
+                <a href="advanced/hooks-demo.html" class="example-link">View Example</a>
+            </li>
+        </ul>
+    </div>
+    
+    <footer style="text-align: center; padding: 2rem; color: #888; font-size: 0.9rem;">
+        &copy; 2024-2026 Mark Gondelman 
+    </footer>
+
+    <script type="module">
+        import { TutorialScreen } from '../src/tutorial.js';
+
+        const indexTutorial = [
+            {
+                name: 'Welcome!',
+                content: 'Welcome to the TutorialScreen gallery. Let me show you what we have here.',
+                target: null
+            },
+            {
+                name: 'Basic: IIFE',
+                content: 'Start here if you want to use the library with a simple &lt;script&gt; tag.',
+                target: '#example-iife' // Element ID or CSS selector to highlight
+            },
+            {
+                name: 'Basic: Modules',
+                content: 'This shows how to use the ESM version of the library.',
+                target: '#example-module' // Element ID or CSS selector to highlight
+            },
+            {
+                name: 'Advanced: Scripting',
+                content: 'Learn how to programmatically control the tour and interact with page elements.',
+                target: '#example-scripted' // Element ID or CSS selector to highlight
+            },
+            {
+                name: 'Advanced: Custom Themes',
+                content: 'See how easily you can create a dark mode or other custom styles.',
+                target: '#example-custom-theme' // Element ID or CSS selector to highlight
+            },
+            {
+                name: 'Advanced: Multi-Theme',
+                content: 'Check out how to mix different themes in the same tour.',
+                target: '#example-multiple-themes' // Element ID or CSS selector to highlight
+            },
+            {
+                name: 'Advanced: Hooks',
+                content: 'The most powerful way to integrate the library with your app lifecycle.',
+                target: '#example-hooks' // Element ID or CSS selector to highlight
+            }
+        ];
+
+        document.getElementById('startTutorial').onclick = () => {
+            TutorialScreen.setCSSLink('../styles/tutorial.css');
+            TutorialScreen.startTutorial(indexTutorial);
+        };
+    </script>
+</body>
+</html>

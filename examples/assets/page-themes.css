@@ -1,0 +1,30 @@
+/* Solarized Theme for TutorialScreen */
+.tutorial_tip.solarized-theme {
+    background: #fdf6e3;
+    color: #657b83;
+    border: 1px solid #d33682;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.tutorial_tip.solarized-theme .tip_title h1 { color: #d33682; }
+.tutorial_tip.solarized-theme .arrow.up { border-bottom-color: #fdf6e3; }
+.tutorial_tip.solarized-theme .arrow.down { border-top-color: #fdf6e3; }
+.tutorial_tip.solarized-theme .arrow.left { border-right-color: #fdf6e3; }
+.tutorial_tip.solarized-theme .arrow.right { border-left-color: #fdf6e3; }
+.tutorial_tip.solarized-theme .side_button { color: #d33682; }
+
+/* Forest Theme */
+.tutorial_tip.forest-theme {
+    background: #2d3e31;
+    color: #d1e1d3;
+    border: 1px solid #7c9473;
+}
+.tutorial_tip.forest-theme .tip_title h1 { color: #a3c9a8; }
+.tutorial_tip.forest-theme .arrow.up { border-bottom-color: #2d3e31; }
+.tutorial_tip.forest-theme .arrow.down { border-top-color: #2d3e31; }
+.tutorial_tip.forest-theme .arrow.left { border-right-color: #2d3e31; }
+.tutorial_tip.forest-theme .arrow.right { border-left-color: #2d3e31; }
+.tutorial_tip.forest-theme .side_button { color: #a3c9a8; }
+
+/* Special classes for elements */
+.special-veil-theme { background: rgba(211, 54, 130, 0.2) !important; }
+.special-controls-theme .button { background: #d33682 !important; color: white !important; }
