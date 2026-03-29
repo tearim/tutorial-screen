@@ -2,6 +2,9 @@
 
 A lightweight, zero-dependency JavaScript library for creating interactive, step-by-step product tours.
 
+<img width="600" alt="screenshot of the product" src="https://github.com/user-attachments/assets/2fc18ddf-290e-4f3d-9aca-ce95c48427f4" />
+
+
 Created by **Mark Gondelman**.
 
 ## Features
