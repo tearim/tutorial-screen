@@ -23,8 +23,7 @@ const commonPlugins = [
 ];
 
 const inputs = [
-  { name: 'TS', path: 'src/tutorial.ts' },
-  { name: 'JS', path: 'src/tutorial.js' }
+  { name: 'TS', path: 'src/tutorial.ts' }
 ];
 
 export default inputs.flatMap(input => [

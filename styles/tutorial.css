@@ -1,5 +1,14 @@
+.tutorial_veil, .tutorial_veil_controls {
+    --tutorial-close-bg: #3face880;
+    --tutorial-close-color: #ffcece;
+    --tutorial-close-hover-bg: #576b8b;
+    --tutorial-next-bg: #a0c98780;
+    --tutorial-next-accent: #a0c987ff;
+    --tutorial-previous-bg: #a0c98780;
+    --tutorial-previous-accent: #ff7885ff;
+}
 
- .tutorial_veil {
+.tutorial_veil {
     --tutorial-tip-bg-color: #ffffff;
     --tutorial-tip-arrow-color: #ffffff;
     --tutorial-bg-color:  #000000c2;
@@ -49,10 +58,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* top: initial !important; */
-    /* left: initial !important; */
-    /* right: initial !important; */
-    /* bottom: initial !important; */
     align-self: anchor-center;
     justify-self: anchor-center;
     height: auto !important;
@@ -71,13 +76,6 @@
         width: 90%;
         height: 80%;
         max-width: 90%;
-    }
-    .tutorial_veil_controls div .buttonie,
-    .tutorial_veil div .buttonie {
-        height: 75px;
-        line-height: 75px;
-        margin: 10px auto;
-        font-size: 1em;
     }
     .tutorial_veil div h1 {
         font-size: 1.3em;
@@ -113,26 +111,26 @@
 
 .tutorial_veil .close,
 .tutorial_veil_controls .close {
-    background-color: var(--bluetinative50);
-    color: var(--agreecusative);
+    background-color: var(--tutorial-close-bg);
+    color: var(--tutorial-close-color);
     top: 5px;
     right: 5px;
 }
 
 .tutorial_veil .close:hover,
 .tutorial_veil_controls .close:hover {
-    background-color: var(--adjective-pars);
+    background-color: var(--tutorial-close-hover-bg);
     transform: rotate(45deg);
-    box-shadow: 0 0 6px 0px var(--light-red-mistake);
+    box-shadow: 0 0 6px 0 var(--tutorial-close-color);
 }
 
 .tutorial_veil .next,
 .tutorial_veil_controls .next {
     top: 5px;
     right: 46px;
-    background: var(--case-gen-50);
-    text-shadow: 0px 0px 2px var(--case-gen);
-    box-shadow: 0 0 1px 1px inset var(--case-gen);
+    background: var(--tutorial-next-bg);
+    text-shadow: 0 0 2px var(--tutorial-next-accent);
+    box-shadow: 0 0 1px 1px inset var(--tutorial-next-accent);
     transition: all 0.5s;
 }
 
@@ -146,23 +144,23 @@
 
 .tutorial_veil .next:hover,
 .tutorial_veil_controls .next:hover {
-    text-shadow: 4px 0px 2px var(--case-gen);
-    box-shadow: -3px 0px 1px 1px inset var(--case-gen);
+    text-shadow: 4px 0 2px var(--tutorial-next-accent);
+    box-shadow: -3px 0 1px 1px inset var(--tutorial-next-accent);
 }
 
 .tutorial_veil .previous,
 .tutorial_veil_controls .previous {
     top: 5px;
     right: 88px;
-    background: var(--case-gen-50);
-    text-shadow: 0px 0px 2px var(--light-red-mistake);
-    box-shadow: 0 0 1px 1px inset var(--light-red-mistake);
+    background: var(--tutorial-previous-bg);
+    text-shadow: 0 0 2px var(--tutorial-previous-accent);
+    box-shadow: 0 0 1px 1px inset var(--tutorial-previous-accent);
     transition: all 0.5s;
 }
 .tutorial_veil .previous:hover,
 .tutorial_veil_controls .previous:hover {
-    text-shadow: -3px 0px 2px var(--light-red-mistake);
-    box-shadow: 3px 0px 1px 1px inset var(--light-red-mistake);
+    text-shadow: -3px 0 2px var(--tutorial-previous-accent);
+    box-shadow: 3px 0 1px 1px inset var(--tutorial-previous-accent);
 }
 .tutorial_veil .previous .caption,
 .tutorial_veil_controls .previous .caption {
@@ -196,23 +194,7 @@
     padding-top: 6px;
     font-size: 0.7em;
 }
-.red_meta_menu {
-    background: var(--agreecusative);
-    border: 1px solid;
-    width: 20px;
-    height: 20px;
-    line-height: 17px;
-    border-radius: 40px;
-    box-shadow: -1px 2px 2px 1px var(--less-green-correctness);
-    z-index: 20;
-    position: relative;
-    text-align: center;
-    transition: 0.4s all;
-    transform: rotate3d(0, 5, 0, 180deg);
-    user-select: none;
-    cursor: pointer;
-    display: inline-block;
-}
+
 .highlighted {
     z-index: 510 !important;
     /* box-shadow: 0 0 11px 10px rgba(255,255,255,0.5), 0 0 21px 8px rgba(255,247,223,0.5) inset; */
@@ -261,26 +243,10 @@
     padding: 0.2em;
     margin: 0.2em;
 }
-
 .tutorial_tip_wide {
     width: 90%;
     max-width: 90%;
 }
-#main_container.moved_down {
-    top: 140px;
-}
-
-.tutorial_veil .buttonie {
-    margin: 26px auto;
-    float: none;
-    line-height: 90px;
-    height: 90px;
-    font-size: 2em;
-    font-weight: bold;
-    width: auto;
-    text-align: center;
-}
-
 .side_button {
     position: absolute;
     display: flex;
@@ -337,12 +303,12 @@
     right: 0;
     width: 40px;
     background: linear-gradient(90deg, var(--myColor1), var(--myColor2));
-    box-shadow: -2px 0px 1px 1px inset var(--case-gen);
+    box-shadow: -2px 0 1px 1px inset var(--tutorial-next-accent);
     transition: --myColor1 0.9s, --myColor2 2s;
 }
 
 .side_button.next:hover {
-    -–myColor1: #aaaa;
+    --myColor1: #aaaa;
     --myColor2: #58d93199;
 }
 
@@ -350,11 +316,11 @@
     left: 0;
     width: 40px;
     background: linear-gradient(90deg, var(--myColor2), var(--myColor1));
-    box-shadow: 2px 0px 1px 1px inset var(--light-red-mistake);
+    box-shadow: 2px 0 1px 1px inset var(--tutorial-previous-accent);
     transition: --myColor1 0.9s, --myColor2 2s;
 }
 
 .side_button.previous:hover {
-    -–myColor1: #aaaa;
+    --myColor1: #aaaa;
     --myColor2: #d9d33199;
 }

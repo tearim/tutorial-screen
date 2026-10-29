@@ -27,7 +27,7 @@ var TutorialScreen = (function (exports) {
       THEME_CLASS_NAME: 'light',
       DEFAULT_TUTORIAL: [{
         name: 'Welcome',
-        content: 'Hello there, I\'m a <strong>tutorial</strong><br /><a href="https:/w3c.org">link</a>',
+        content: 'Hello there, I\'m a <strong>tutorial</strong><br /><a href="https://w3c.org">link</a>',
         target: null
       }]
     };
@@ -40,7 +40,6 @@ var TutorialScreen = (function (exports) {
       let tutorialStages = [];
       let CSSLink = 'styles/tutorial.css';
       let stylesEmbedded = false;
-      let newStyleJustEmbedded = false;
       let veil = document.createElement('div');
       let veilControls = document.createElement('div');
       let unveiler = null;
@@ -72,21 +71,20 @@ var TutorialScreen = (function (exports) {
         body.append(veilControls);
         body.append(veil);
         tutorialStarted = true;
-        if (newStyleJustEmbedded) {
-          newStyleJustEmbedded = false;
-          // Sometimes the browser doesn't process the CSS immediately, so we need to wait a bit.
-          setTimeout(render, 25);
-        } else {
-          render();
-        }
+        stylesReady.then(render);
         if (tutorialOptions.CLOSE_ON_ESCAPE) {
-          document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && tutorialStarted) {
-              end();
-            }
-          }, {
-            once: true
-          });
+          document.addEventListener('keydown', onKeydown);
+        }
+      }
+      function onKeydown(event) {
+        if (event.key == 'Escape' && tutorialStarted) {
+          end();
+        }
+        if (event.key == 'ArrowLeft' && tutorialStarted) {
+          previous();
+        }
+        if (event.key == 'ArrowRight' && tutorialStarted) {
+          next();
         }
       }
       /**
@@ -106,6 +104,7 @@ var TutorialScreen = (function (exports) {
         removeHighlight();
         removeResizerNScroller();
         tutorialStarted = false;
+        document.removeEventListener('keydown', onKeydown);
       }
       /**
        * Advances the tutorial to the next stage.
@@ -129,22 +128,25 @@ var TutorialScreen = (function (exports) {
         }
         render();
       }
+      let stylesReady = Promise.resolve();
       /**
        * Injects the required CSS link into the document head.
        */
-      function embedStyles(forceTime = true) {
+      function embedStyles(forceTime = false) {
         if (stylesEmbedded) return;
         let head = document.getElementsByTagName('HEAD')[0];
-        const oldLink = document.getElementById('tutorial_screen_styles');
-        if (oldLink) oldLink.remove();
-        let link = document.createElement('link');
+        document.getElementById('tutorial_screen_styles')?.remove();
+        const link = document.createElement('link');
         link.id = 'tutorial_screen_styles';
         link.rel = 'stylesheet';
         link.setAttribute('type', 'text/css');
-        link.setAttribute('href', forceTime ? CSSLink + '?time=' + Date.now() : CSSLink);
+        link.href = forceTime ? CSSLink + '?time=' + Date.now() : CSSLink;
+        stylesReady = new Promise(resolve => {
+          link.onload = () => resolve();
+          link.onerror = () => resolve();
+        });
         head.appendChild(link);
         stylesEmbedded = true;
-        newStyleJustEmbedded = true;
       }
       /**
        * Merges user-provided parameters into the global options.
@@ -185,7 +187,7 @@ var TutorialScreen = (function (exports) {
       function _showTip(content, elemName) {
         if (!tutorialStarted) return;
         removeHighlight();
-        let elem = null;
+        let elem;
         if (typeof elemName == 'string') {
           elem = document.querySelector(elemName);
         } else {
@@ -197,7 +199,7 @@ var TutorialScreen = (function (exports) {
             block: 'center'
           });
           elem.classList.add('highlighted');
-          if (elem.style.position == '' || elem.style.position == 'static') {
+          if (getComputedStyle(elem).position === 'static') {
             highlightedElementPreviousPosition = elem.style.position;
             elem.style.position = 'relative';
           }
@@ -345,7 +347,6 @@ var TutorialScreen = (function (exports) {
         const rightSpace = 1 - highlightedPosition.right / window.innerWidth;
         if (rightSpace > biggestSpace) {
           biggestSpaceName = 'right';
-          biggestSpace = rightSpace;
         }
         if (typeof tutorialStages[stage].preferredLocation == 'string') {
           biggestSpaceName = tutorialStages[stage].preferredLocation;

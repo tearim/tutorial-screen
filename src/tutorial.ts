@@ -68,7 +68,7 @@ const TutorialScreenDefaults: TutorialOptions = {
     DEFAULT_TUTORIAL: [
         { 
             name: 'Welcome',
-            content: 'Hello there, I\'m a <strong>tutorial</strong><br /><a href="https:/w3c.org">link</a>',
+            content: 'Hello there, I\'m a <strong>tutorial</strong><br /><a href="https://w3c.org">link</a>',
             target: null
         }    
     ]
@@ -82,8 +82,7 @@ const TutorialScreen = (function(){
     let tutorialStarted: boolean = false;
     let tutorialStages: TutorialStage[] = [];
     let CSSLink: string = 'styles/tutorial.css';
-    let stylesEmbedded: boolean = false; 
-    let newStyleJustEmbedded: boolean = false;
+    let stylesEmbedded: boolean = false;
     let veil: HTMLElement = document.createElement('div');
     let veilControls: HTMLElement = document.createElement('div');
     let unveiler: HTMLElement | null = null;
@@ -118,19 +117,21 @@ const TutorialScreen = (function(){
         body.append ( veilControls );                
         body.append ( veil );
         tutorialStarted = true;
-        if ( newStyleJustEmbedded ) {
-            newStyleJustEmbedded = false;
-            // Sometimes the browser doesn't process the CSS immediately, so we need to wait a bit.
-            setTimeout( render, 25);
-        } else {
-            render();
-        }
+        stylesReady.then(render);
         if ( tutorialOptions.CLOSE_ON_ESCAPE ) {
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && tutorialStarted) {
-                    end();
-                }
-            }, { once: true });
+            document.addEventListener('keydown', onKeydown);
+        }
+    }
+
+    function onKeydown(event: KeyboardEvent) {
+        if ( event.key == 'Escape' && tutorialStarted) {
+            end();
+        }
+        if ( event.key == 'ArrowLeft' && tutorialStarted) {
+            previous();
+        }
+        if ( event.key == 'ArrowRight' && tutorialStarted) {
+            next();
         }
     }
 
@@ -151,6 +152,7 @@ const TutorialScreen = (function(){
         removeHighlight();
         removeResizerNScroller();
         tutorialStarted = false;
+        document.removeEventListener('keydown', onKeydown);
     }
 
     /**
@@ -177,22 +179,26 @@ const TutorialScreen = (function(){
         render(); 
     }
 
+    let stylesReady: Promise<void> = Promise.resolve();
+
     /**
      * Injects the required CSS link into the document head.
      */
-    function embedStyles(forceTime: boolean = true) {
+    function embedStyles(forceTime: boolean = false) {
         if ( stylesEmbedded ) return; 
         let head = document.getElementsByTagName('HEAD')[0];
-        const oldLink = document.getElementById('tutorial_screen_styles');
-        if ( oldLink ) oldLink.remove();
-        let link = document.createElement('link');
+        document.getElementById('tutorial_screen_styles')?.remove();
+        const link = document.createElement('link');
         link.id = 'tutorial_screen_styles';
         link.rel = 'stylesheet';
         link.setAttribute('type', 'text/css');
-        link.setAttribute('href', forceTime ? CSSLink + '?time=' + Date.now() : CSSLink); 
+        link.href = forceTime ? CSSLink + '?time=' + Date.now() : CSSLink;
+        stylesReady = new Promise(resolve => {
+            link.onload = () => resolve();
+            link.onerror = () => resolve();
+        });
         head.appendChild(link);
         stylesEmbedded = true;
-        newStyleJustEmbedded = true;
     }
 
     /**
@@ -233,7 +239,7 @@ const TutorialScreen = (function(){
     function _showTip (content: string, elemName: string | HTMLElement | null) {
         if ( !tutorialStarted ) return; 
         removeHighlight();
-        let elem: HTMLElement | null = null;
+        let elem: HTMLElement | null;
         if ( typeof elemName == 'string' ) {
             elem = document.querySelector ( elemName);
         } else {
@@ -242,7 +248,7 @@ const TutorialScreen = (function(){
         if ( elem ) {
             elem.scrollIntoView({ behavior: 'smooth', block: 'center' });
             elem.classList.add('highlighted');
-            if ( elem.style.position == '' || elem.style.position == 'static' ) {
+            if ( getComputedStyle(elem).position === 'static' ) {
                 highlightedElementPreviousPosition = elem.style.position;
                 elem.style.position = 'relative';
             }
@@ -379,7 +385,7 @@ const TutorialScreen = (function(){
             tipElem.classList.add ('general');
             tipArrowDirection = null;
             return;
-        };
+        }
         tipElem.style.top = ''; 
         tipElem.style.bottom = '';
         tipElem.style.right = '';
@@ -394,7 +400,7 @@ const TutorialScreen = (function(){
         const leftSpace = highlightedPosition.left / window.innerWidth;
         if ( leftSpace > biggestSpace ) { biggestSpaceName = 'left';  biggestSpace = leftSpace; }
         const rightSpace = 1 - highlightedPosition.right / window.innerWidth;
-        if ( rightSpace > biggestSpace ) { biggestSpaceName = 'right';  biggestSpace = rightSpace; }
+        if ( rightSpace > biggestSpace ) { biggestSpaceName = 'right'; }
         if ( typeof tutorialStages[stage].preferredLocation == 'string' ) {
             biggestSpaceName = tutorialStages[stage].preferredLocation!;
         }
